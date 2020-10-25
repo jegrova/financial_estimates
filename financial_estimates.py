@@ -2,15 +2,13 @@
 
 import utils
 
-# TODO převést výpočty z sheetu
+csv_files = utils.get_all_reports()
+df = utils.gather_data(csv_files)
+output_df = utils.create_empty_df(df['date'])
+print(output_df)
 
-
-import pandas
-
-csv_files = utils.get_all_reports_current_dir()
-
-df_from_each_file = (pandas.read_csv(f, sep=';') for f in csv_files)
-concatenated_df = pandas.concat(df_from_each_file, ignore_index=True)
+january = utils.data_month_range(df, 2020, 1)
+print(january)
 
 # TODO součty každého měsíce podle budgetů
 # TODO stav po každém měsíci podle budgetů
@@ -21,13 +19,4 @@ concatenated_df = pandas.concat(df_from_each_file, ignore_index=True)
 # TODO měsíční zůstatek na účtu
 # TODO měsíční průměr zůstatků na účtu
 # TODO roční zůstatek po všech měsících
-
-
-
-print(concatenated_df.loc[664])
-
-print(concatenated_df['date'])
-concatenated_df['date']= pandas.to_datetime(concatenated_df['date'])
-print(concatenated_df['date'])
-concatenated_df.set_index([concatenated_df.index, 'date'], drop=False, inplace=True)
-print(concatenated_df['date'].loc['2020-09-30 21:00:18'])
+# TODO převést výpočty z sheetu
